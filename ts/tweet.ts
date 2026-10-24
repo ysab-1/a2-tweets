@@ -7,10 +7,30 @@ class Tweet {
 		this.time = new Date(tweet_time);//, "ddd MMM D HH:mm:ss Z YYYY"
 	}
 
-	//returns either 'live_event', 'achievement', 'completed_event', or 'miscellaneous'
+	// Getter for tweet source
     get source():string {
-        //TODO: identify whether the source is a live event, an achievement, a completed event, or miscellaneous.
-        return "unknown";
+        // Categorizing RunKeeper tweets
+        if (this.text.toLowerCase().includes("completed") || this.text.toLowerCase().includes("posted a workout") || this.text.toLowerCase().includes("ran") || this.text.toLowerCase().includes("walked") || this.text.toLowerCase().includes("biked")) {
+            // Check state of action
+            if (this.text.toLowerCase().includes("right now")) {
+                return "live event";
+            }
+            return "completed event";
+        } else if (this.text.toLowerCase().includes("achieved") || this.text.toLowerCase().includes("goal") || this.text.toLowerCase().includes("set a")) {
+            return "achievement";
+        } else if (this.text.toLowerCase().includes("watch") || this.text.toLowerCase().includes("download")) {
+            return "miscellaneous";
+        }
+        
+        // Processing common RunKeeper phrases
+        if (this.text.includes("Just completed") || this.text.includes("Just posted")) {
+            return "completed event";
+        } else if (this.text.includes("Watch")) {
+            return "live event";
+        } else if (this.text.includes("achieved")) {
+            return "achievement";
+        }
+        return "miscellaneous";
     }
 
     //returns a boolean, whether the text includes any content written by the person tweeting.
