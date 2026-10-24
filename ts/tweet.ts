@@ -76,12 +76,23 @@ class Tweet {
         return "other";
     }
 
+    // Getter for distance of run in miles
     get distance():number {
         if(this.source != 'completed_event') {
             return 0;
         }
-        //TODO: prase the distance from the text of the tweet
-        return 0;
+        // Match direct conversions like "3.11 mi" or "5 km"
+        const match = this.text.match(/([\d.]+)\s*(mi|km)/i);
+        if (!match) return 0;
+
+        const val = parseFloat(match[1]);
+        const unit = match[2].toLowerCase();
+
+        if (unit === "km") {
+            // Convert kilometers to miles
+            return val / 1.609;
+        }
+        return val;
     }
 
     getHTMLTableRow(rowNumber:number):string {
