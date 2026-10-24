@@ -95,8 +95,18 @@ class Tweet {
         return val;
     }
 
+    // Helper to make HTML table row for description page
     getHTMLTableRow(rowNumber:number):string {
-        //TODO: return a table row which summarizes the tweet with a clickable link to the RunKeeper activity
-        return "<tr></tr>";
+        // Make links clickable
+        let formattedText = this.text.replace(
+            /(https?:\/\/[^\s]+)/g,
+            '<a href="$1" target="_blank">$1</a>'
+        );
+
+        return `<tr>
+            <td>${rowNumber}</td>
+            <td>${this.activityType}</td>
+            <td>${formattedText}</td>
+        </tr>`;
     }
 }
