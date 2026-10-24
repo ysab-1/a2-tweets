@@ -42,12 +42,19 @@ class Tweet {
         return textWithoutTags.trim().length > 0;
     }
 
+    // Getter that strips user-written text of URLs, Runkeeper text, hashtags, and links
     get writtenText():string {
-        if(!this.written) {
-            return "";
-        }
-        //TODO: parse the written text from the tweet
-        return "";
+        let cleaned = this.text;
+        // Remove URLs
+        cleaned = cleaned.replace(/https?:\/\/[^\s]+/g, "");
+        // Remove #RunKeeper
+        cleaned = cleaned.replace(/#RunKeeper/gi, "");
+        // Remove common RunKeeper boilerplate prefixes
+        cleaned = cleaned.replace(/Just completed a\s*[\d.]+\s*(mi|km)\s*\w+with\s*@RunKeeper\.?/gi, "");
+        cleaned = cleaned.replace(/Just posted a\s*[\d.]+\s*(mi|km)\s*\w+with\s*@RunKeeper\.?/gi, "");
+        cleaned = cleaned.replace(/Just completed a\s*[\d.]+\s*\w+with\s*@RunKeeper\.?/gi, "");
+        cleaned = cleaned.replace(/Just posted a\s*[\d.]+\s*\w+with\s*@RunKeeper\.?/gi, "");
+        return cleaned.trim();
     }
 
     get activityType():string {
