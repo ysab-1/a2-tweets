@@ -33,10 +33,13 @@ class Tweet {
         return "miscellaneous";
     }
 
-    //returns a boolean, whether the text includes any content written by the person tweeting.
+    // Getter that determines is tweet contains original, user-written text
     get written():boolean {
-        //TODO: identify whether the tweet is written
-        return false;
+        if (this.source !== "completed event") {
+            return false;
+        }
+        let textWithoutTags = this.writtenText;
+        return textWithoutTags.trim().length > 0;
     }
 
     get writtenText():string {
