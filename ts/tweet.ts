@@ -57,12 +57,23 @@ class Tweet {
         return cleaned.trim();
     }
 
+    // Getter for activity type in tweet
     get activityType():string {
         if (this.source != 'completed_event') {
             return "unknown";
         }
-        //TODO: parse the activity type from the text of the tweet
-        return "";
+        const lower = this.text.toLowerCase();
+        if (lower.includes("run")) return "running";
+        if (lower.includes("bike") || lower.includes("biking") || lower.includes("cycling")) return "biking";
+        if (lower.includes("walk")) return "walking";
+        if (lower.includes("swim")) return "swimming";
+        if (lower.includes("ski")) return "skiing";
+        if (lower.includes("hike")) return "hiking";
+        if (lower.includes("chair ride")) return "chair ride";
+        if (lower.includes("elliptical")) return "elliptical";
+        if (lower.includes("yoga")) return "yoga";
+        if (lower.includes("core workout")) return "core workout";
+        return "other";
     }
 
     get distance():number {
