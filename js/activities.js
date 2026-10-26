@@ -146,7 +146,7 @@ function parseTweets(runkeeper_tweets) {
                 console.error("Vega embed error:", error);
             });
             
-            aggregateButton.innerText = isAggregated ? "Show all points" : "Show means";
+            aggregateButton.innerText = isAggregated ? "Show all activities" : "Show means";
         });
     }
 }
