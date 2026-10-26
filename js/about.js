@@ -9,19 +9,26 @@ function parseTweets(runkeeper_tweets) {
 		return new Tweet(tweet.text, tweet.created_at);
 	});
 	
-    // DOM update helper to prevent crashes if an ID doesn't match
-    function safeSetText(id, text) {
+    // Helper for IDs
+    function setIdText(id, text) {
         const el = document.getElementById(id);
         if (el) {
             el.innerText = text;
         }
     }
-    
+
+    // Helper for Classes (updates all matching elements on the page)
+    function setClassText(className, text) {
+        const elements = document.querySelectorAll('.' + className);
+        if (elements.length > 0) {
+            elements.forEach(el => {
+                el.innerText = text;
+            });
+        }
+    }
+
     // Update total tweet count
-    safeSetText('numberTweets', tweet_array.length);
-    
-	//This line modifies the DOM, searching for the tag with the numberTweets ID and updating the text.
-	document.getElementById('numberTweets').innerText = tweet_array.length;	
+    setIdText('numberTweets', tweet_array.length);
 
 	// Find earliest and latest tweet dates
     if (tweet_array.length > 0) {
@@ -33,8 +40,8 @@ function parseTweets(runkeeper_tweets) {
         const latestDate = sortedTweets[sortedTweets.length - 1].getTime();
 
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        safeSetText('earliest', earliestDate.toLocaleDateString('en-US', options));
-        safeSetText('latest', latestDate.toLocaleDateString('en-US', options));
+        setIdText('firstDate', earliestDate.toLocaleDateString('en-US', options));
+        setIdText('lastDate', latestDate.toLocaleDateString('en-US', options));
     }
 
 	// Analyzing tweet categories count & percentages
@@ -53,17 +60,17 @@ function parseTweets(runkeeper_tweets) {
 
     const totalTweets = tweet_array.length;
 
-    safeSetText('completedEvents', completedCount);
-    safeSetText('completedEventsPct', math.format((completedCount / totalTweets) * 100, {notation: 'fixed', precision: 2}) + '%');
+    setClassText('completedEvents', completedCount);
+    setClassText('completedEventsPct', math.format((completedCount / totalTweets) * 100, {notation: 'fixed', precision: 2}) + '%');
 
-    safeSetText('liveEvents', liveCount);
-    safeSetText('liveEventsPct', math.format((liveCount / totalTweets) * 100, {notation: 'fixed', precision: 2}) + '%');
+    setClassText('liveEvents', liveCount);
+    setClassText('liveEventsPct', math.format((liveCount / totalTweets) * 100, {notation: 'fixed', precision: 2}) + '%');
 
-    safeSetText('achievements', achievementCount);
-    safeSetText('achievementsPct', math.format((achievementCount / totalTweets) * 100, {notation: 'fixed', precision: 2}) + '%');
+    setClassText('achievements', achievementCount);
+    setClassText('achievementsPct', math.format((achievementCount / totalTweets) * 100, {notation: 'fixed', precision: 2}) + '%');
 
-    safeSetText('miscellaneous', miscCount);
-    safeSetText('miscellaneousPct', math.format((miscCount / totalTweets) * 100, {notation: 'fixed', precision: 2}) + '%');
+    setClassText('miscellaneous', miscCount);
+    setClassText('miscellaneousPct', math.format((miscCount / totalTweets) * 100, {notation: 'fixed', precision: 2}) + '%');
 
 	// Calculating user-written tweets
     let writtenCompletedCount = 0;
@@ -73,9 +80,9 @@ function parseTweets(runkeeper_tweets) {
         }
     });
 
-    safeSetText('written', writtenCompletedCount);
+    setClassText('written', writtenCompletedCount);
     const completedPctOfWritten = completedCount > 0 ? (writtenCompletedCount / completedCount) * 100 : 0;
-    safeSetText('writtenPct', math.format(completedPctOfWritten, {notation: 'fixed', precision: 2}) + '%');
+    setClassText('writtenPct', math.format(completedPctOfWritten, {notation: 'fixed', precision: 2}) + '%');
 }
 
 //Wait for the DOM to load

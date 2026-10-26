@@ -51,11 +51,11 @@ class Tweet {
         cleaned = cleaned.replace(/https?:\/\/[^\s]+/g, "");
         // Remove #RunKeeper
         cleaned = cleaned.replace(/#RunKeeper/gi, "");
-        // Remove common RunKeeper boilerplate prefixes
-        cleaned = cleaned.replace(/Just completed a\s*[\d.]+\s*(mi|km)\s*\w+with\s*@RunKeeper\.?/gi, "");
-        cleaned = cleaned.replace(/Just posted a\s*[\d.]+\s*(mi|km)\s*\w+with\s*@RunKeeper\.?/gi, "");
-        cleaned = cleaned.replace(/Just completed a\s*[\d.]+\s*\w+with\s*@RunKeeper\.?/gi, "");
-        cleaned = cleaned.replace(/Just posted a\s*[\d.]+\s*\w+with\s*@RunKeeper\.?/gi, "");
+        // Remove common RunKeeper boilerplate prefixes (with proper spacing)
+        cleaned = cleaned.replace(/Just completed a\s*[\d.]+\s*(mi|km)\s*\w+\s+with\s*@RunKeeper\.?/gi, "");
+        cleaned = cleaned.replace(/Just posted a\s*[\d.]+\s*(mi|km)\s*\w+\s+with\s*@RunKeeper\.?/gi, "");
+        cleaned = cleaned.replace(/Just completed a\s*[\d.]+\s*\w+\s+with\s*@RunKeeper\.?/gi, "");
+        cleaned = cleaned.replace(/Just posted a\s*[\d.]+\s*\w+\s+with\s*@RunKeeper\.?/gi, "");
         return cleaned.trim();
     }
 
