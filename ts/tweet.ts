@@ -7,6 +7,11 @@ class Tweet {
 		this.time = new Date(tweet_time);//, "ddd MMM D HH:mm:ss Z YYYY"
 	}
 
+    // Returns the date of the tweet
+    public getTime():Date {
+        return this.time;
+    }
+
 	// Getter for tweet source
     get source():string {
         // Categorizing RunKeeper tweets
