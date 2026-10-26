@@ -1,3 +1,5 @@
+let writtenTweets = [];
+
 function parseTweets(runkeeper_tweets) {
 	//Do not proceed if no tweets loaded
 	if(runkeeper_tweets === undefined) {
@@ -5,7 +7,12 @@ function parseTweets(runkeeper_tweets) {
 		return;
 	}
 
-	//TODO: Filter to just the written tweets
+	// Map raw objects to Tweet instances and filter to just user-written completed tweets
+    const tweet_array = runkeeper_tweets.map(function(tweet) {
+        return new Tweet(tweet.text, tweet.created_at);
+    });
+
+    writtenTweets = tweet_array.filter(t => t.source === 'completed event' && t.written);
 }
 
 function addEventHandlerForSearch() {
