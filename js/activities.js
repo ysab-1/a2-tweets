@@ -122,10 +122,10 @@ function parseTweets(runkeeper_tweets) {
         "data": {
             "values": distanceData
         },
-        "mark": "bar",
+        "mark": "point",
         "encoding": {
             "x": {"field": "day", "type": "nominal", "sort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], "title": "time (day)"},
-            "y": {"field": "distance", "aggregate": "mean", "type": "quantitative", "title": "distance"},
+            "y": {"field": "distance", "aggregate": "mean", "type": "quantitative", "title": "Mean of distance"},
             "color": {"field": "activity", "type": "nominal", "title": "activity type"}
         }
     };
