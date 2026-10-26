@@ -17,7 +17,7 @@ function parseTweets(runkeeper_tweets) {
         }
     }
     
-    // Update total tweet count[cite: 3]
+    // Update total tweet count
     safeSetText('numberTweets', tweet_array.length);
     
 	//This line modifies the DOM, searching for the tag with the numberTweets ID and updating the text.
@@ -53,11 +53,11 @@ function parseTweets(runkeeper_tweets) {
 
     const totalTweets = tweet_array.length;
 
-    safeSetText('completed', completedCount);
-    safeSetText('completedPct', math.format((completedCount / totalTweets) * 100, {notation: 'fixed', precision: 2}) + '%');
+    safeSetText('completedEvents', completedCount);
+    safeSetText('completedEventsPct', math.format((completedCount / totalTweets) * 100, {notation: 'fixed', precision: 2}) + '%');
 
-    safeSetText('live', liveCount);
-    safeSetText('livePct', math.format((liveCount / totalTweets) * 100, {notation: 'fixed', precision: 2}) + '%');
+    safeSetText('liveEvents', liveCount);
+    safeSetText('liveEventsPct', math.format((liveCount / totalTweets) * 100, {notation: 'fixed', precision: 2}) + '%');
 
     safeSetText('achievements', achievementCount);
     safeSetText('achievementsPct', math.format((achievementCount / totalTweets) * 100, {notation: 'fixed', precision: 2}) + '%');
