@@ -63,14 +63,23 @@ function parseTweets(runkeeper_tweets) {
 
     document.getElementById('longerType').innerText = avgWeekend > avgWeekday ? 'weekends' : 'weekdays';
 
-	
+	// Data visualization for activity type count
+	let activityData = Object.keys(activityCounts).map(act => ({
+        activity: act,
+        count: activityCounts[act]
+    }));
+
 	activity_vis_spec = {
 	  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
 	  "description": "A graph of the number of Tweets containing each type of activity.",
 	  "data": {
 	    "values": tweet_array
-	  }
-	  //TODO: Add mark and encoding
+	  },
+	  "mark": "bar",
+      "encoding": {
+        "x": {"field": "activity", "type": "nominal", "axis": {"labelAngle": -45}, "title": "Activity Type"},
+        "y": {"field": "count", "type": "quantitative", "title": "Count"}
+      }
 	};
 	vegaEmbed('#activityVis', activity_vis_spec, {actions:false});
 
