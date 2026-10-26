@@ -83,8 +83,27 @@ function parseTweets(runkeeper_tweets) {
 	};
 	vegaEmbed('#activityVis', activity_vis_spec, {actions:false});
 
-	//TODO: create the visualizations which group the three most-tweeted activities by the day of the week.
-	//Use those visualizations to answer the questions about which activities tended to be longest and when.
+	// Data visualization for distance by day of week
+    let dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    let distanceData = top3Tweets.map(t => ({
+        day: dayNames[t.getTime().getDay()],
+        distance: t.distance,
+        activity: t.activityType
+    }));
+
+    let distance_vis_spec = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "description": "Distances by day of the week for top 3 activities.",
+        "data": {
+            "values": distanceData
+        },
+        "mark": "point",
+        "encoding": {
+            "x": {"field": "day", "type": "nominal", "sort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], "title": "time (day)"},
+            "y": {"field": "distance", "type": "quantitative", "title": "distance"},
+            "color": {"field": "activity", "type": "nominal", "title": "activity type"}
+        }
+    };
 }
 
 //Wait for the DOM to load
