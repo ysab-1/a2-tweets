@@ -73,9 +73,6 @@ class Tweet {
         if (lower.includes("walk") || lower.includes("walking")) {
             return "walking";
         }
-        if (lower.includes("run") || lower.includes("running") || lower.includes("ran")) {
-            return "running";
-        }
         if (lower.includes("swim") || lower.includes("swimming")) {
             return "swimming";
         }
@@ -93,6 +90,11 @@ class Tweet {
         }
         if (lower.includes("core workout")) {
             return "core workout";
+        }
+
+        // Check running last among the sports so it doesn't catch @RunKeeper
+        if (lower.includes("run") || lower.includes("running") || lower.includes("ran")) {
+            return "running";
         }
     
         return "other";
