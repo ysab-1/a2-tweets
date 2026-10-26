@@ -14,27 +14,24 @@ class Tweet {
 
 	// Getter for tweet source
     get source():string {
-        // Categorizing RunKeeper tweets
-        if (this.text.toLowerCase().includes("completed") || this.text.toLowerCase().includes("posted a workout") || this.text.toLowerCase().includes("ran") || this.text.toLowerCase().includes("walked") || this.text.toLowerCase().includes("biked")) {
-            // Check state of action
-            if (this.text.toLowerCase().includes("right now")) {
+        const lowerText = this.text.toLowerCase();
+
+        // Check for completed events
+        if (lowerText.startsWith("just completed") || lowerText.startsWith("just posted")) {
+            if (lowerText.includes("right now")) {
                 return "live event";
             }
             return "completed event";
-        } else if (this.text.toLowerCase().includes("achieved") || this.text.toLowerCase().includes("goal") || this.text.toLowerCase().includes("set a")) {
-            return "achievement";
-        } else if (this.text.toLowerCase().includes("watch") || this.text.toLowerCase().includes("download")) {
-            return "miscellaneous";
-        }
-        
-        // Processing common RunKeeper phrases
-        if (this.text.includes("Just completed") || this.text.includes("Just posted")) {
-            return "completed event";
-        } else if (this.text.includes("Watch")) {
+        } 
+        // Check for live events
+        else if (lowerText.startsWith("watch") || lowerText.includes("right now")) {
             return "live event";
-        } else if (this.text.includes("achieved")) {
+        } 
+        // Check for achievements
+        else if (lowerText.includes("achieved") || lowerText.includes("goal") || lowerText.includes("set a")) {
             return "achievement";
-        }
+        } 
+        // Default to miscellaneous
         return "miscellaneous";
     }
 
@@ -64,17 +61,16 @@ class Tweet {
 
     // Getter for activity type in tweet
     get activityType():string {
-        if (this.source != 'completed_event') {
+        if (this.source !== "completed event") {
             return "unknown";
         }
         const lower = this.text.toLowerCase();
-        if (lower.includes("run")) return "running";
+        if (lower.includes("run") || lower.includes("running")) return "running";
         if (lower.includes("bike") || lower.includes("biking") || lower.includes("cycling")) return "biking";
-        if (lower.includes("walk")) return "walking";
-        if (lower.includes("swim")) return "swimming";
-        if (lower.includes("ski")) return "skiing";
-        if (lower.includes("hike")) return "hiking";
-        if (lower.includes("chair ride")) return "chair ride";
+        if (lower.includes("walk") || lower.includes("walking")) return "walking";
+        if (lower.includes("swim") || lower.includes("swimming")) return "swimming";
+        if (lower.includes("ski") || lower.includes("skiing")) return "skiing";
+        if (lower.includes("hike") || lower.includes("hiking")) return "hiking";
         if (lower.includes("elliptical")) return "elliptical";
         if (lower.includes("yoga")) return "yoga";
         if (lower.includes("core workout")) return "core workout";
