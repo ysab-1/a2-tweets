@@ -104,6 +104,24 @@ function parseTweets(runkeeper_tweets) {
             "color": {"field": "activity", "type": "nominal", "title": "activity type"}
         }
     };
+
+	// Data visualization for aggregated distance
+    let aggregated_vis_spec = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "description": "Mean distances by day of the week for top 3 activities.",
+        "data": {
+            "values": distanceData
+        },
+        "mark": "bar",
+        "encoding": {
+            "x": {"field": "day", "type": "nominal", "sort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], "title": "time (day)"},
+            "y": {"field": "distance", "aggregate": "mean", "type": "quantitative", "title": "mean distance"},
+            "color": {"field": "activity", "type": "nominal", "title": "activity type"}
+        }
+    };
+
+    let currentView = distance_vis_spec;
+    vegaEmbed('#distanceVis', currentView, {actions: false});
 }
 
 //Wait for the DOM to load
