@@ -122,6 +122,18 @@ function parseTweets(runkeeper_tweets) {
 
     let currentView = distance_vis_spec;
     vegaEmbed('#distanceVis', currentView, {actions: false});
+
+	// Added toggle button event listener to switch between raw points and aggregated means
+    let isAggregated = false;
+    const aggregateButton = document.getElementById('aggregate');
+    if (aggregateButton) {
+        aggregateButton.addEventListener('click', function() {
+            isAggregated = !isAggregated;
+            currentView = isAggregated ? aggregated_vis_spec : distance_vis_spec;
+            vegaEmbed('#distanceVis', currentView, {actions: false});
+            aggregateButton.innerText = isAggregated ? "Show all points" : "Show means";
+        });
+    }
 }
 
 //Wait for the DOM to load
