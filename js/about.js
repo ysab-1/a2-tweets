@@ -51,6 +51,17 @@ function parseTweets(runkeeper_tweets) {
 
     document.getElementById('miscellaneous').innerText = miscCount;
     document.getElementById('miscellaneousPct').innerText = math.format((miscCount / totalTweets) * 100, {notation: 'fixed', precision: 2}) + '%';
+
+	// Calculating user-written tweets
+    let writtenCompletedCount = 0;
+    tweet_array.forEach(function(t) {
+        if (t.source === 'completed event' && t.written) {
+            writtenCompletedCount++;
+        }
+    });
+
+    document.getElementById('written').innerText = writtenCompletedCount;
+    document.getElementById('writtenPct').innerText = math.format((writtenCompletedCount / completedCount) * 100, {notation: 'fixed', precision: 2}) + '%';
 }
 
 //Wait for the DOM to load
