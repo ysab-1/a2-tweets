@@ -65,15 +65,36 @@ class Tweet {
             return "unknown";
         }
         const lower = this.text.toLowerCase();
-        if (lower.includes("run") || lower.includes("running")) return "running";
-        if (lower.includes("bike") || lower.includes("biking") || lower.includes("cycling")) return "biking";
-        if (lower.includes("walk") || lower.includes("walking")) return "walking";
-        if (lower.includes("swim") || lower.includes("swimming")) return "swimming";
-        if (lower.includes("ski") || lower.includes("skiing")) return "skiing";
-        if (lower.includes("hike") || lower.includes("hiking")) return "hiking";
-        if (lower.includes("elliptical")) return "elliptical";
-        if (lower.includes("yoga")) return "yoga";
-        if (lower.includes("core workout")) return "core workout";
+        
+        // Check specific activity keywords first
+        if (lower.includes("bike") || lower.includes("biking") || lower.includes("cycling")) {
+            return "biking";
+        }
+        if (lower.includes("walk") || lower.includes("walking")) {
+            return "walking";
+        }
+        if (lower.includes("run") || lower.includes("running") || lower.includes("ran")) {
+            return "running";
+        }
+        if (lower.includes("swim") || lower.includes("swimming")) {
+            return "swimming";
+        }
+        if (lower.includes("ski") || lower.includes("skiing")) {
+            return "skiing";
+        }
+        if (lower.includes("hike") || lower.includes("hiking")) {
+            return "hiking";
+        }
+        if (lower.includes("elliptical")) {
+            return "elliptical";
+        }
+        if (lower.includes("yoga")) {
+            return "yoga";
+        }
+        if (lower.includes("core workout")) {
+            return "core workout";
+        }
+    
         return "other";
     }
 
