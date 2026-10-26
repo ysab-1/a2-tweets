@@ -115,24 +115,31 @@ function parseTweets(runkeeper_tweets) {
         "mark": "bar",
         "encoding": {
             "x": {"field": "day", "type": "nominal", "sort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], "title": "time (day)"},
-            "y": {"field": "distance", "aggregate": "mean", "type": "quantitative", "title": "mean distance"},
+            "y": {"field": "distance", "aggregate": "mean", "type": "quantitative", "title": "distance"},
             "color": {"field": "activity", "type": "nominal", "title": "activity type"}
         }
     };
 
-    let currentView = distance_vis_spec;
-    vegaEmbed('#distanceVis', currentView, {actions: false});
+    // Render initial chart
+    vegaEmbed('#distanceVis', distance_vis_spec, {actions: false});
 
 	// Added toggle button event listener to switch between raw points and aggregated means
     let isAggregated = false;
     const aggregateButton = document.getElementById('aggregate');
+    
     if (aggregateButton) {
         aggregateButton.addEventListener('click', function() {
             isAggregated = !isAggregated;
-            currentView = isAggregated ? aggregated_vis_spec : distance_vis_spec;
-            vegaEmbed('#distanceVis', currentView, {actions: false});
+            let currentView = isAggregated ? aggregated_vis_spec : distance_vis_spec;
+            
+            vegaEmbed('#distanceVis', currentView, {actions: false}).catch(function(error) {
+                console.error("Vega embed error:", error);
+            });
+            
             aggregateButton.innerText = isAggregated ? "Show all points" : "Show means";
         });
+    } else {
+        console.error("Could not find element with id 'aggregate'");
     }
 }
 
