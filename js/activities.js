@@ -73,7 +73,7 @@ function parseTweets(runkeeper_tweets) {
 
     // --- Vega-Lite Visualizations ---
 
-    // 1. Activity type count visualization[cite: 4]
+    // 1. Activity type count visualization
     let activityData = Object.keys(activityCounts).map(act => ({
         activity: act,
         count: activityCounts[act]
@@ -115,7 +115,7 @@ function parseTweets(runkeeper_tweets) {
         }
     };
 
-    // 3. Aggregated distance visualization (Mean)[cite: 4, 5]
+    // 3. Aggregated distance visualization (Mean)
     let aggregated_vis_spec = {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
         "description": "Mean distances by day of the week for top 3 activities.",
@@ -133,7 +133,7 @@ function parseTweets(runkeeper_tweets) {
     // Render initial chart
     vegaEmbed('#distanceVis', distance_vis_spec, {actions: false});
 
-    // Toggle button event listener to switch between raw points and aggregated means[cite: 4, 5]
+    // Toggle button event listener to switch between raw points and aggregated means
     let isAggregated = false;
     const aggregateButton = document.getElementById('aggregate');
     
