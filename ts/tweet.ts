@@ -113,7 +113,7 @@ class Tweet {
         const unit = match[2].toLowerCase();
 
         if (unit.startsWith("km") || unit.startsWith("kilometer")) {
-            return val / 1.609; // Convert kilometers to miles[cite: 4]
+            return val / 1.609; // Convert kilometers to miles
         }
         return val;
     }
